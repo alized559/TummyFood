@@ -10,21 +10,25 @@
         android:id="@+id/chooseCategoryTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Choose Category"
         android:fontFamily="@font/s"
+        android:text="Choose Category"
         android:textColor="@color/tomato"
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.073" />
+        app:layout_constraintVertical_bias="0.036" />
 
     <ListView
+        android:layout_marginTop="10dp"
         android:id="@+id/categoriesList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:listSelector="@android:color/transparent"
+        android:divider="@null"
+        android:dividerHeight="20.0sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
