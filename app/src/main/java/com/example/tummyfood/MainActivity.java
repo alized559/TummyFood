@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
         ImageButton allRecipiesBtn = findViewById(R.id.recipies_image_button);
 
         allRecipiesBtn.setOnClickListener(view -> {
-            Intent i = new Intent(MainActivity.this, RecipesActivity.class);
+            Intent i = new Intent(MainActivity.this, CategoriesActivity.class);
             startActivity(i);
         });
     }
