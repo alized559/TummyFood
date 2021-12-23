@@ -1,8 +1,10 @@
 package com.example.tummyfood;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ImageButton allRecipiesBtn = findViewById(R.id.recipies_image_button);
+        ImageView allRecipiesBtn = findViewById(R.id.all_recipies_image);
 
         allRecipiesBtn.setOnClickListener(view -> {
             Intent i = new Intent(MainActivity.this, CategoriesActivity.class);

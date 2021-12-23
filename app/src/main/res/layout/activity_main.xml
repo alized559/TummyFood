@@ -6,13 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <ImageButton
-        android:id="@+id/recipies_image_button"
-        android:layout_width="74dp"
-        android:layout_height="66dp"
-        android:background="?selectableItemBackgroundBorderless"
-        android:scaleType="fitXY"
-        android:src="@drawable/recipies_image_button"
+    <ImageView
+        android:id="@+id/all_recipies_image"
+        android:layout_width="82dp"
+        android:layout_height="78dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/all_recipies_image"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.048"
