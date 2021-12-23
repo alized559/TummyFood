@@ -48,7 +48,7 @@ android:gravity="center">
                     android:layout_marginLeft="20dp"
                     android:fontFamily="@font/s"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/tomato" />
+                    android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/seeAll"
