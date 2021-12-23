@@ -1,8 +1,10 @@
 package com.example.tummyfood;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ImageButton;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -10,5 +12,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ImageButton allRecipiesBtn = findViewById(R.id.recipies_image_button);
+
+        allRecipiesBtn.setOnClickListener(view -> {
+            Intent i = new Intent(MainActivity.this, RecipesActivity.class);
+            startActivity(i);
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finishAffinity();
     }
 }
