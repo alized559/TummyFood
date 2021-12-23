@@ -8,14 +8,14 @@ import android.os.Handler;
 
 public class SplashScreen extends AppCompatActivity {
 
-    public static final int TIME = 3000;
+    public static final long TIME = 3000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        new Handler().postDelayed((Runnable) () -> {
+        new Handler().postDelayed(() -> {
             Intent i = new Intent(this, MainActivity.class);
             startActivity(i);
         }, TIME);
