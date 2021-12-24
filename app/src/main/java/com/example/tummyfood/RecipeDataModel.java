@@ -1,5 +1,7 @@
 package com.example.tummyfood;
 
+import android.graphics.Bitmap;
+
 public class RecipeDataModel {
 
     int id = 1;
@@ -7,6 +9,8 @@ public class RecipeDataModel {
     String category = "New Category";
     int prepTime = 40;
     String imageLink = "https://i.imgur.com/897VeyK.jpeg";
+
+    Bitmap currentImage = null;
 
     public RecipeDataModel(int id, String name, String category, int prepTime, String imageLink){
         this.id = id;
@@ -21,6 +25,14 @@ public class RecipeDataModel {
         this.name = name;
         this.category = category;
         this.prepTime = prepTime;
+    }
+
+    public void setImage(Bitmap image){
+        this.currentImage = image;
+    }
+
+    public Bitmap getImage(){
+        return currentImage;
     }
 
     public int getId(){

@@ -1,6 +1,7 @@
 package com.example.tummyfood;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +20,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -56,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
         GetTrendingRecipes();
 
-        recipeListAdapter = new RecipeListAdapter(this, R.layout.recipelistitem, TrendingRecipes);
+        recipeListAdapter = new RecipeListAdapter(this, R.layout.recipelistitem, TrendingRecipes, queue);
         trendingListView.setAdapter(recipeListAdapter);
 
         trendingListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -85,9 +87,29 @@ public class MainActivity extends AppCompatActivity {
                         String type = row.getString("type");
                         int time = row.getInt("time");
                         String image = row.getString("image");
-                        TrendingRecipes.add(new RecipeDataModel(id, name, type, time, image));
+                        if(image.equalsIgnoreCase("none")){
+                            ImageRequest request = new ImageRequest(ServerUrls.GetImage(id), new Response.Listener<Bitmap>() {
+                                @Override
+                                public void onResponse(Bitmap response) {
+                                    RecipeDataModel model = new RecipeDataModel(id, name, type, time, image);
+                                    model.setImage(response);
+                                    TrendingRecipes.add(model);
+                                    recipeListAdapter.notifyDataSetChanged();
+                                }
+                            }, 0, 0, ImageView.ScaleType.FIT_CENTER, Bitmap.Config.ARGB_8888,
+                                    new Response.ErrorListener() {
+                                        @Override
+                                        public void onErrorResponse(VolleyError error) {
+                                            Toast.makeText(MainActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+
+                            queue.add(request);
+                        }else {
+                            TrendingRecipes.add(new RecipeDataModel(id, name, type, time, image));
+                            recipeListAdapter.notifyDataSetChanged();
+                        }
                     }
-                    recipeListAdapter.notifyDataSetChanged();
 
                 } catch (Exception ex) {
                     Toast.makeText(MainActivity.this, "No Trending Recipes Found", Toast.LENGTH_SHORT).show();
