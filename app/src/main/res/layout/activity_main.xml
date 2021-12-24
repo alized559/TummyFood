@@ -9,6 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
         android:id="@+id/titleConstrainLayout">
 
         <ImageView
@@ -19,10 +20,10 @@
             android:src="@drawable/all_recipes_image"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.018"
+            app:layout_constraintHorizontal_bias="0.080"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.018" />
+            app:layout_constraintVertical_bias="0.466" />
 
         <TextView
             android:id="@+id/main_trending_tv"
@@ -30,7 +31,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/s"
             android:text="Trending Recipes"
-            android:textColor="@color/black"
+            android:textColor="@color/tomato"
             android:textSize="30dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
