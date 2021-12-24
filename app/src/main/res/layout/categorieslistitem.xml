@@ -36,13 +36,13 @@ android:gravity="center">
 
             <LinearLayout
                 android:orientation="vertical"
-                android:layout_width="110dp"
-                android:layout_height="wrap_content">
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
 
                 <TextView
                     android:id="@+id/categoryTitle"
                     android:layout_width="wrap_content"
-                    android:text="Apetizers"
+                    android:text="Mainjjjjjjjhhhh"
                     android:textSize="25dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginLeft="20dp"
@@ -62,13 +62,6 @@ android:gravity="center">
                     android:text="See all"/>
 
             </LinearLayout>
-
-            <ImageView
-                android:id="@+id/categoryIcon"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="92dp"
-                android:src="@drawable/arrow"/>
 
         </LinearLayout>
 

@@ -39,7 +39,6 @@ public class CategoriesListAdapter extends ArrayAdapter<CategoriesDataModel> {
             ImageView image = (ImageView) v.findViewById(R.id.categoryImage);
             TextView title = (TextView) v.findViewById(R.id.categoryTitle);
             TextView seeAll = (TextView) v.findViewById(R.id.seeAll);
-            ImageView icon = (ImageView) v.findViewById(R.id.categoryIcon);
 
             if (image != null) {
                 image.setImageResource(p.getImage());
@@ -48,11 +47,9 @@ public class CategoriesListAdapter extends ArrayAdapter<CategoriesDataModel> {
                 title.setText(p.getTitle());
             }
 
-            icon.setOnClickListener(view -> {
-                Intent i = new Intent(mContext, RecipesActivity.class);
-                i.putExtra("currentCategory", title.getText().toString());
-                mContext.startActivity(i);
-            });
+//            icon.setOnClickListener(view -> {
+
+//            });
         }
         return v;
     }
