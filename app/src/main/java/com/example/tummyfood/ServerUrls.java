@@ -8,4 +8,8 @@ public class ServerUrls {
         return "http://toxicscripts.com/college/getImage.php?id=" + recipe;
     }
 
+    public static String getRecipeDetails(int recipeId) {
+        return "http://toxicscripts.com/college/getRecipeDetails.php?id=" + recipeId;
+    }
+
 }
