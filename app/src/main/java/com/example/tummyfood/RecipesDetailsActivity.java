@@ -70,7 +70,7 @@ public class RecipesDetailsActivity extends AppCompatActivity {
 
                     String newIngredients = "";
                     for (int i = 0; i < ingredients.length(); i++) {
-                        if (ingredients.charAt(i) == '\n') {
+                        if (ingredients.charAt(i) == '\n' || i == ingredients.length() - 1) {
                             TextView tv = new TextView(RecipesDetailsActivity.this);
                             tv.setText(newIngredients);
                             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.
@@ -89,7 +89,7 @@ public class RecipesDetailsActivity extends AppCompatActivity {
 
                     String newPreparation = "";
                     for (int i = 0; i < preparations.length(); i++) {
-                        if (preparations.charAt(i) == '\n') {
+                        if (preparations.charAt(i) == '\n' || i == preparations.length() - 1) {
                             TextView tv = new TextView(RecipesDetailsActivity.this);
                             tv.setText(newPreparation);
                             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.
