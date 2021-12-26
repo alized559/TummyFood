@@ -1,10 +1,19 @@
 package com.example.tummyfood;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,26 +22,31 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.flexbox.FlexboxLayout;
+import com.google.android.flexbox.FlexboxLayoutManager;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 
 public class RecipesDetailsActivity extends AppCompatActivity {
 
-    private TextView ingredientsDetails;
-    private TextView preparationDetails;
     private ImageView detailsImage;
-
+    private ArrayList<String> prep;
     private RequestQueue queue;
+    private FlexboxLayout flex, flex1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_details);
 
-        ingredientsDetails = findViewById(R.id.ingredientsDetails);
-        preparationDetails = findViewById(R.id.preparationDetails);
         detailsImage = findViewById(R.id.detailsImage);
+
+        flex = findViewById(R.id.flexLayout);
+        flex1 = findViewById(R.id.flexLayout1);
 
         queue = Volley.newRequestQueue(this);
 
@@ -47,32 +61,51 @@ public class RecipesDetailsActivity extends AppCompatActivity {
             public void onResponse(JSONArray response) {
                 try {
                     String ingredients = "";
-                    String preparation = "";
+                    String preparations = "";
                     for (int i = 0; i < response.length(); i++) {
                         JSONObject row = response.getJSONObject(i);
                         ingredients = row.getString("ingredients");
-                        preparation = row.getString("preparation");
+                        preparations = row.getString("preparation");
                     }
-                    String newIngredients = "★ ";
+
+                    String newIngredients = "";
                     for (int i = 0; i < ingredients.length(); i++) {
                         if (ingredients.charAt(i) == '\n') {
-                            newIngredients += ingredients.charAt(i) + "\n" + "★ ";
+                            TextView tv = new TextView(RecipesDetailsActivity.this);
+                            tv.setText(newIngredients);
+                            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.
+                                    LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                            lp.setMargins(5, 5, 5, 5);
+                            tv.setLayoutParams(lp);
+                            tv.setPadding(30, 30,30,30);
+                            tv.setTextColor(Color.BLACK);
+                            tv.setBackground(getResources().getDrawable(R.drawable.flexradius));
+                            flex.addView(tv);
+                            newIngredients = "";
                         } else {
                             newIngredients += ingredients.charAt(i);
                         }
                     }
 
-                    String newPreparation = "★ ";
-                    for (int i = 0; i < preparation.length(); i++) {
-                        if (preparation.charAt(i) == '\n') {
-                            newPreparation += preparation.charAt(i) + "\n" + "★ ";
+                    String newPreparation = "";
+                    for (int i = 0; i < preparations.length(); i++) {
+                        if (preparations.charAt(i) == '\n') {
+                            TextView tv = new TextView(RecipesDetailsActivity.this);
+                            tv.setText(newPreparation);
+                            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.
+                                    LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                            lp.setMargins(5, 5, 5, 5);
+                            tv.setLayoutParams(lp);
+                            tv.setPadding(30, 30,30,30);
+                            tv.setTextColor(Color.BLACK);
+                            tv.setBackground(getResources().getDrawable(R.drawable.flex1radius));
+                            tv.setGravity(Gravity.CENTER);
+                            flex1.addView(tv);
+                            newPreparation = "";
                         } else {
-                            newPreparation += preparation.charAt(i);
+                            newPreparation += preparations.charAt(i);
                         }
                     }
-
-                    ingredientsDetails.setText(newIngredients);
-                    preparationDetails.setText(newPreparation);
                 } catch (Exception e) {
                     Toast.makeText(RecipesDetailsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
