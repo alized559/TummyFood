@@ -34,7 +34,7 @@ public class CategoriesActivity extends AppCompatActivity {
         categoriesList.setAdapter(adapter);
 
         categoriesList.setOnItemClickListener((adapterView, view, i, l) -> {
-            Intent intent = new Intent(this, RecipesDetailsActivity.class);
+            Intent intent = new Intent(this, RecipesActivity.class);
             intent.putExtra("currentCategory", list.get(i).getTitle());
             startActivity(intent);
         });
