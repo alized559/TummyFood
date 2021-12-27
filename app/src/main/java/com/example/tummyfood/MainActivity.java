@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
 
     private RequestQueue queue;
 
+    public static Bitmap image;
+
     public static ArrayList<RecipeDataModel> TrendingRecipes = new ArrayList<>();
 
     private RecipeListAdapter recipeListAdapter = null;
@@ -65,6 +67,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 RecipeDataModel model = recipeListAdapter.getItem(i);
+                Intent intent = new Intent(MainActivity.this, RecipesDetailsActivity.class);
+                intent.putExtra("id", model.getId());
+                image = model.getImage();
+                startActivity(intent);
             }
         });
 

@@ -35,6 +35,7 @@ public class RecipesDetailsActivity extends AppCompatActivity {
 
     private ImageView detailsImage;
     private ArrayList<String> prep;
+    private int id;
     private RequestQueue queue;
     private FlexboxLayout flex, flex1;
 
@@ -50,13 +51,14 @@ public class RecipesDetailsActivity extends AppCompatActivity {
 
         queue = Volley.newRequestQueue(this);
 
-        getRecipeDetails();
+        id = getIntent().getIntExtra("id", 0);
+        getRecipeDetails(id);
 
-        detailsImage.setImageResource(R.drawable.recipe_20);
+        detailsImage.setImageBitmap(MainActivity.image);
     }
 
-    public void getRecipeDetails() {
-        JsonArrayRequest request = new JsonArrayRequest(ServerUrls.getRecipeDetails(1), new Response.Listener<JSONArray>() {
+    public void getRecipeDetails(int id) {
+        JsonArrayRequest request = new JsonArrayRequest(ServerUrls.getRecipeDetails(id), new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 try {
