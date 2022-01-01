@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 RecipeDataModel model = recipeListAdapter.getItem(i);
                 Intent intent = new Intent(MainActivity.this, RecipesDetailsActivity.class);
                 intent.putExtra("id", model.getId());
+                intent.putExtra("title", model.getName());
                 image = model.getImage();
                 startActivity(intent);
             }

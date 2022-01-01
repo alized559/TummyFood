@@ -54,6 +54,10 @@ public class RecipesDetailsActivity extends AppCompatActivity {
         id = getIntent().getIntExtra("id", 0);
         getRecipeDetails(id);
 
+        String t = getIntent().getStringExtra("title");
+        TextView title = findViewById(R.id.recipeTitleTv);
+        title.setText(t);
+
         detailsImage.setImageBitmap(MainActivity.image);
     }
 
@@ -76,7 +80,7 @@ public class RecipesDetailsActivity extends AppCompatActivity {
                             TextView tv = new TextView(RecipesDetailsActivity.this);
                             tv.setText(newIngredients);
                             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.
-                                    LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                    LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                             lp.setMargins(5, 5, 5, 5);
                             tv.setLayoutParams(lp);
                             tv.setPadding(30, 30,30,30);
@@ -100,7 +104,7 @@ public class RecipesDetailsActivity extends AppCompatActivity {
                             tv.setLayoutParams(lp);
                             tv.setPadding(30, 30,30,30);
                             tv.setTextColor(Color.BLACK);
-                            tv.setBackground(getResources().getDrawable(R.drawable.flex1radius));
+                            tv.setBackground(getResources().getDrawable(R.drawable.flexradius));
                             tv.setGravity(Gravity.CENTER);
                             flex1.addView(tv);
                             newPreparation = "";

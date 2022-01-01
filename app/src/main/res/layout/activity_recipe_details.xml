@@ -1,65 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:gravity="center"
+    android:layout_height="wrap_content"
+    tools:context=".RecipesDetailsActivity">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:orientation="vertical"
-        android:layout_height="match_parent">
+    <androidx.cardview.widget.CardView
+        android:layout_width="320dp"
+        android:layout_marginTop="50dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        card_view:cardCornerRadius="2dp"
+        android:id="@+id/detailsCardView"
+        card_view:cardBackgroundColor="#f9f9f9"
+        card_view:cardPreventCornerOverlap="false"
+        card_view:cardUseCompatPadding="true"
+        android:layout_marginBottom="10dp">
 
-        <ImageView
-            android:id="@+id/detailsImage"
-            android:src="@drawable/recipe_20"
-            android:layout_width="wrap_content"
-            android:scaleType="centerCrop"
-            android:layout_height="250dp"/>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/ingredientsTv"
-            android:text="Ingredients"
-            android:layout_marginTop="50dp"
-            android:layout_marginLeft="20dp"
-            android:textSize="25dp"
-            android:fontFamily="@font/s"
-            android:textColor="@color/tomato"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <com.google.android.flexbox.FlexboxLayout
-            android:id="@+id/flexLayout"
-            android:layout_marginTop="20dp"
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:flexDirection="row"
-            app:justifyContent="center"
-            app:alignItems="center"
-            app:flexWrap="wrap">
+            android:gravity="center">
 
-        </com.google.android.flexbox.FlexboxLayout>
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                card_view:cardCornerRadius="60dp">
 
-        <TextView
-            android:id="@+id/preparationTv"
-            android:text="Preparation"
-            android:layout_marginTop="50dp"
-            android:layout_marginLeft="20dp"
-            android:textSize="25dp"
-            android:fontFamily="@font/s"
-            android:textColor="@color/tomato"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+                <ImageView
+                    android:id="@+id/detailsImage"
+                    android:layout_width="128dp"
+                    android:layout_height="128dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/default_recipe_image" />
 
-        <com.google.android.flexbox.FlexboxLayout
-            android:id="@+id/flexLayout1"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:flexWrap="wrap">
+            </androidx.cardview.widget.CardView>
 
-        </com.google.android.flexbox.FlexboxLayout>
+            <TextView
+                android:id="@+id/recipeTitleTv"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:text="Recipe Name"
+                android:fontFamily="@font/s"
+                android:textSize="30dp" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/ingredientsTv"
+                android:text="Required Ingredients"
+                android:textSize="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/s"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
-</ScrollView>
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/flexLayout"
+                android:layout_marginTop="20dp"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                app:flexWrap="wrap">
+
+            </com.google.android.flexbox.FlexboxLayout>
+
+            <TextView
+                android:id="@+id/preparationsTv"
+                android:text="Preparation"
+                android:layout_marginTop="30dp"
+                android:textSize="20dp"
+                android:fontFamily="@font/s"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/flexLayout1"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                app:flexWrap="wrap">
+
+            </com.google.android.flexbox.FlexboxLayout>
+        </LinearLayout>
+        </ScrollView>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>
