@@ -66,13 +66,9 @@ public class RecipesDetailsActivity extends AppCompatActivity {
             @Override
             public void onResponse(JSONArray response) {
                 try {
-                    String ingredients = "";
-                    String preparations = "";
-                    for (int i = 0; i < response.length(); i++) {
-                        JSONObject row = response.getJSONObject(i);
-                        ingredients = row.getString("ingredients");
-                        preparations = row.getString("preparation");
-                    }
+                    JSONObject row = response.getJSONObject(0);
+                    String ingredients = row.getString("ingredients");
+                    String preparations = row.getString("preparation");
 
                     String newIngredients = "";
                     for (int i = 0; i < ingredients.length(); i++) {
