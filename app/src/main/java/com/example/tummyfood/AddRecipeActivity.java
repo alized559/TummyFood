@@ -94,12 +94,12 @@ public class AddRecipeActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(String response) {
                             Toast.makeText(AddRecipeActivity.this, response, Toast.LENGTH_SHORT).show();
+                            finish();
                         }
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Log.e("Error", error.toString());
-                            Toast.makeText(AddRecipeActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
+
                         }
                     }) {
                         @Nullable
@@ -120,36 +120,6 @@ public class AddRecipeActivity extends AppCompatActivity {
                             return params;
                         }
                     };
-
-                    /*JsonArrayRequest request = new JsonArrayRequest(ServerUrls.CreateRecipe(title, currentCategory, prepTime, ingredients, preparation), new Response.Listener<JSONArray>() {
-                        @Override
-                        public void onResponse(JSONArray response) {
-                            try {
-                                JSONObject row = response.getJSONObject(0);
-                                int id = row.getInt("id");
-                                String state = row.getString("state");
-                                if(state == "success"){
-
-                                    Toast.makeText(AddRecipeActivity.this, "Uploaded " + id + " " + state, Toast.LENGTH_SHORT).show();
-                                }else {
-                                    createRecipe.setEnabled(true);
-                                    Toast.makeText(AddRecipeActivity.this, "Uploading Error", Toast.LENGTH_SHORT).show();
-                                }
-                            } catch (Exception ex) {
-                                createRecipe.setEnabled(true);
-                                Toast.makeText(AddRecipeActivity.this, "Uploading Error", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            createRecipe.setEnabled(true);
-                            Toast.makeText(AddRecipeActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
-                        }
-                    });*/
-
-
-
                     queue.add(request);
 
                 } catch (IOException e) {

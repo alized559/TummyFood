@@ -103,13 +103,13 @@ public class RecipesDetailsActivity extends AppCompatActivity {
                     }
 
                 } catch (Exception e) {
-                    Toast.makeText(RecipesDetailsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(RecipesDetailsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(RecipesDetailsActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(RecipesDetailsActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
