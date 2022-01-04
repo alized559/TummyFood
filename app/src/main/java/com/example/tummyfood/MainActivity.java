@@ -36,8 +36,6 @@ public class MainActivity extends AppCompatActivity {
 
     private RequestQueue queue;
 
-    public static Bitmap image;
-
     public static ArrayList<RecipeDataModel> TrendingRecipes = new ArrayList<>();
 
     private RecipeListAdapter recipeListAdapter = null;
@@ -70,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, RecipesDetailsActivity.class);
                 intent.putExtra("id", model.getId());
                 intent.putExtra("title", model.getName());
-                image = model.getImage();
                 startActivity(intent);
             }
         });
@@ -83,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void GetTrendingRecipes(){
         TrendingRecipes.clear();
-        JsonArrayRequest request = new JsonArrayRequest(ServerUrls.GetRecipe, new Response.Listener<JSONArray>() {
+        JsonArrayRequest request = new JsonArrayRequest(ServerUrls.GetTrendingRecipes(), new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 try {
@@ -93,13 +90,13 @@ public class MainActivity extends AppCompatActivity {
                         String name = row.getString("title");
                         String type = row.getString("type");
                         int time = row.getInt("time");
-                        String image = row.getString("image");
-                        if(image.equalsIgnoreCase("none")){
+                        if(ImageCache.GetImage(id) == null) {
                             ImageRequest request = new ImageRequest(ServerUrls.GetImage(id), new Response.Listener<Bitmap>() {
                                 @Override
                                 public void onResponse(Bitmap response) {
-                                    RecipeDataModel model = new RecipeDataModel(id, name, type, time, image);
+                                    RecipeDataModel model = new RecipeDataModel(id, name, type, time);
                                     model.setImage(response);
+                                    ImageCache.SetImage(id, response);
                                     TrendingRecipes.add(model);
                                     recipeListAdapter.notifyDataSetChanged();
                                 }
@@ -113,7 +110,9 @@ public class MainActivity extends AppCompatActivity {
 
                             queue.add(request);
                         }else {
-                            TrendingRecipes.add(new RecipeDataModel(id, name, type, time, image));
+                            RecipeDataModel model = new RecipeDataModel(id, name, type, time);
+                            model.setImage(ImageCache.GetImage(id));
+                            TrendingRecipes.add(model);
                             recipeListAdapter.notifyDataSetChanged();
                         }
                     }

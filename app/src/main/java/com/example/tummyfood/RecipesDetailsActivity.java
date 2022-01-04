@@ -58,7 +58,7 @@ public class RecipesDetailsActivity extends AppCompatActivity {
         TextView title = findViewById(R.id.recipeTitleTv);
         title.setText(t);
 
-        detailsImage.setImageBitmap(MainActivity.image);
+        detailsImage.setImageBitmap(ImageCache.GetImage(id));
     }
 
     public void getRecipeDetails(int id) {

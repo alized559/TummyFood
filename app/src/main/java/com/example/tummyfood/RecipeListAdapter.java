@@ -55,28 +55,7 @@ public class RecipeListAdapter extends ArrayAdapter<RecipeDataModel> {
             TextView recipeCategory = v.findViewById(R.id.recipeCategory);
             TextView recipePrepTime = v.findViewById(R.id.recipePrepTime);
             if (recipeImage != null) {
-                if(p.getImageLink().equalsIgnoreCase("none")){
-                    /*if(p.getImage() == null){
-                        ImageRequest request = new ImageRequest(ServerUrls.GetImage(p.getId()), new Response.Listener<Bitmap>() {
-                            @Override
-                            public void onResponse(Bitmap response) {
-                                p.setImage(response);
-                                recipeImage.setImageBitmap(p.getImage());
-                            }
-                        }, 0, 0, ImageView.ScaleType.FIT_CENTER, Bitmap.Config.ARGB_8888,
-                                new Response.ErrorListener() {
-                                    @Override
-                                    public void onErrorResponse(VolleyError error) {
-                                        Toast.makeText(mContext, error.toString(), Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-
-                        queue.add(request);
-                    }else {
-                        recipeImage.setImageBitmap(p.getImage());
-                    }*/
-                    recipeImage.setImageBitmap(p.getImage());
-                }
+                recipeImage.setImageBitmap(p.getImage());
             }
             if (recipeTitle != null) {
                 recipeTitle.setText(p.getName());
