@@ -30,6 +30,7 @@ import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RecipesDetailsActivity extends AppCompatActivity {
 
@@ -70,44 +71,37 @@ public class RecipesDetailsActivity extends AppCompatActivity {
                     String ingredients = row.getString("ingredients");
                     String preparations = row.getString("preparation");
 
-                    String newIngredients = "";
-                    for (int i = 0; i < ingredients.length(); i++) {
-                        if (ingredients.charAt(i) == '\n' || i == ingredients.length() - 1) {
-                            TextView tv = new TextView(RecipesDetailsActivity.this);
-                            tv.setText(newIngredients);
-                            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.
-                                    LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                            lp.setMargins(5, 5, 5, 5);
-                            tv.setLayoutParams(lp);
-                            tv.setPadding(30, 30,30,30);
-                            tv.setTextColor(Color.BLACK);
-                            tv.setBackground(getResources().getDrawable(R.drawable.flexradius));
-                            flex.addView(tv);
-                            newIngredients = "";
-                        } else {
-                            newIngredients += ingredients.charAt(i);
-                        }
+                    String[] ingredientArray = ingredients.split("\n");
+
+                    for(String ingredient : ingredientArray){
+                        TextView tv = new TextView(RecipesDetailsActivity.this);
+                        tv.setText(ingredient);
+                        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.
+                                LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                        lp.setMargins(5, 5, 5, 5);
+                        tv.setLayoutParams(lp);
+                        tv.setPadding(30, 30,30,30);
+                        tv.setTextColor(Color.BLACK);
+                        tv.setBackground(getResources().getDrawable(R.drawable.flexradius));
+                        flex.addView(tv);
                     }
 
-                    String newPreparation = "";
-                    for (int i = 0; i < preparations.length(); i++) {
-                        if (preparations.charAt(i) == '\n' || i == preparations.length() - 1) {
-                            TextView tv = new TextView(RecipesDetailsActivity.this);
-                            tv.setText(newPreparation);
-                            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.
-                                    LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                            lp.setMargins(5, 5, 5, 5);
-                            tv.setLayoutParams(lp);
-                            tv.setPadding(30, 30,30,30);
-                            tv.setTextColor(Color.BLACK);
-                            tv.setBackground(getResources().getDrawable(R.drawable.flexradius));
-                            tv.setGravity(Gravity.CENTER);
-                            flex1.addView(tv);
-                            newPreparation = "";
-                        } else {
-                            newPreparation += preparations.charAt(i);
-                        }
+                    String[] preparationArray = preparations.split("\n");
+
+                    for(String prep : preparationArray){
+                        TextView tv = new TextView(RecipesDetailsActivity.this);
+                        tv.setText(prep);
+                        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.
+                                LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                        lp.setMargins(5, 5, 5, 5);
+                        tv.setLayoutParams(lp);
+                        tv.setPadding(30, 30,30,30);
+                        tv.setTextColor(Color.BLACK);
+                        tv.setBackground(getResources().getDrawable(R.drawable.flexradius));
+                        tv.setGravity(Gravity.CENTER);
+                        flex1.addView(tv);
                     }
+
                 } catch (Exception e) {
                     Toast.makeText(RecipesDetailsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }

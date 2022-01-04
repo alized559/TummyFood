@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
         GetTrendingRecipes();
 
-        recipeListAdapter = new RecipeListAdapter(this, R.layout.recipelistitem, TrendingRecipes, queue);
+        recipeListAdapter = new RecipeListAdapter(this, R.layout.recipelistitem, TrendingRecipes);
         trendingListView.setAdapter(recipeListAdapter);
 
         trendingListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

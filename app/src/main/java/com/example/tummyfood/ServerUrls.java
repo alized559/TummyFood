@@ -1,5 +1,9 @@
 package com.example.tummyfood;
 
+import android.util.Log;
+
+import com.android.volley.toolbox.StringRequest;
+
 public class ServerUrls {
 
     public static String GetRecipes(String category){
@@ -18,4 +22,5 @@ public class ServerUrls {
         return "http://toxicscripts.com/college/getRecipeDetails.php?id=" + recipeId;
     }
 
+    public static String CreateRecipe = "http://toxicscripts.com/college/createRecipe.php";
 }

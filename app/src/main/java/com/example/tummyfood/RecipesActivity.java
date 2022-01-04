@@ -47,6 +47,7 @@ public class RecipesActivity extends AppCompatActivity {
 
         addRecipesBtn.setOnClickListener(view -> {
             Intent i = new Intent(RecipesActivity.this,AddRecipeActivity.class);
+            i.putExtra("currentCategory", currentCategory);
             startActivity(i);
         });
 
@@ -54,7 +55,7 @@ public class RecipesActivity extends AppCompatActivity {
 
         GetCurrentRecipes(currentCategory);
 
-        recipeListAdapter = new RecipeListAdapter(this, R.layout.recipelistitem, CurrentRecipes, queue);
+        recipeListAdapter = new RecipeListAdapter(this, R.layout.recipelistitem, CurrentRecipes);
         recipesListView.setAdapter(recipeListAdapter);
 
         recipesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

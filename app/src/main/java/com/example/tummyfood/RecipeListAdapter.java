@@ -26,14 +26,11 @@ public class RecipeListAdapter extends ArrayAdapter<RecipeDataModel> {
     private ArrayList<RecipeDataModel> dataSet;
     private Context mContext;
 
-    private RequestQueue queue;
-
-    public RecipeListAdapter(Context context, int resource, ArrayList<RecipeDataModel> data, RequestQueue queue) {
+    public RecipeListAdapter(Context context, int resource, ArrayList<RecipeDataModel> data) {
         super(context, R.layout.recipelistitem, data);
         this.resourceLayout = resource;
         this.dataSet = data;
         this.mContext=context;
-        this.queue = queue;
     }
 
     @Override
