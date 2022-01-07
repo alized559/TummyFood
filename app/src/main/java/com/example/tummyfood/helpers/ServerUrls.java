@@ -32,4 +32,8 @@ public class ServerUrls {
 
     public static String UserLikes = "http://toxicscripts.com/college/userLikes.php";
 
+    public static String GetAllLikes(int userID) {
+        return "http://toxicscripts.com/college/getAllLikes.php?userID=" + userID;
+    }
+
 }
