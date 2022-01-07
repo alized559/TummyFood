@@ -80,7 +80,7 @@ public class RecipesActivity extends AppCompatActivity {
         });
 
         TextView title = findViewById(R.id.main_recipe_tv);
-        Animation anim = AnimationUtils.loadAnimation(this, R.anim.bounce);
+        Animation anim = AnimationUtils.loadAnimation(this, R.anim.jump);
         title.startAnimation(anim);
         title.setText(currentCategory);
 

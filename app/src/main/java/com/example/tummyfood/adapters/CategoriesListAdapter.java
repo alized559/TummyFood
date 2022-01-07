@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -38,9 +40,8 @@ public class CategoriesListAdapter extends ArrayAdapter<CategoriesDataModel> {
         CategoriesDataModel p = getItem(position);
 
         if (p != null) {
-            ImageView image = (ImageView) v.findViewById(R.id.categoryImage);
-            TextView title = (TextView) v.findViewById(R.id.categoryTitle);
-            TextView seeAll = (TextView) v.findViewById(R.id.seeAll);
+            ImageView image = v.findViewById(R.id.categoryImage);
+            TextView title = v.findViewById(R.id.categoryTitle);
 
             if (image != null) {
                 image.setImageResource(p.getImage());
@@ -48,10 +49,6 @@ public class CategoriesListAdapter extends ArrayAdapter<CategoriesDataModel> {
             if (title != null) {
                 title.setText(p.getTitle());
             }
-
-//            icon.setOnClickListener(view -> {
-
-//            });
         }
         return v;
     }

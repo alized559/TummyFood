@@ -13,8 +13,6 @@
         card_view:cardCornerRadius="2dp"
         android:id="@+id/recipeCardView"
         card_view:cardBackgroundColor="#f9f9f9"
-        card_view:cardPreventCornerOverlap="false"
-        card_view:cardUseCompatPadding="true"
         android:layout_marginBottom="10dp">
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -29,7 +27,8 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                card_view:cardCornerRadius="60dp">
+                card_view:cardCornerRadius="64dp"
+                android:shape="ring">
 
                 <ImageView
                     android:id="@+id/recipeImage"

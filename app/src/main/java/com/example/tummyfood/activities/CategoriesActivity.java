@@ -25,6 +25,7 @@ public class CategoriesActivity extends AppCompatActivity {
         ListView categoriesList = findViewById(R.id.categoriesList);
 
         ArrayList<CategoriesDataModel> list = new ArrayList<>();
+
         list.add(new CategoriesDataModel(R.drawable.main_dish, "Main Dish"));
         list.add(new CategoriesDataModel(R.drawable.apetizers, "Appetizer"));
         list.add(new CategoriesDataModel(R.drawable.pizza, "Pizza"));

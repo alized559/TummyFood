@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         TextView title = findViewById(R.id.main_trending_tv);
-        Animation anim = AnimationUtils.loadAnimation(this, R.anim.bounce);
+        Animation anim = AnimationUtils.loadAnimation(this, R.anim.pulse);
         title.startAnimation(anim);
 
     }
@@ -126,14 +126,13 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                 } catch (Exception ex) {
-                    //Toast.makeText(MainActivity.this, "No Trending Recipes Found", Toast.LENGTH_SHORT).show();
+
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                //Toast.makeText(MainActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
-                //Log.e("Loading Error", error.toString());
+
             }
         });
 
