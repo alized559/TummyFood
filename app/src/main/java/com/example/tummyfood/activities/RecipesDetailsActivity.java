@@ -1,33 +1,47 @@
 package com.example.tummyfood.activities;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
+import android.media.Image;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.tummyfood.helpers.ImageCache;
 import com.example.tummyfood.R;
 import com.example.tummyfood.helpers.ServerUrls;
+import com.example.tummyfood.helpers.UserLikes;
+import com.example.tummyfood.helpers.UserLogin;
 import com.google.android.flexbox.FlexboxLayout;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RecipesDetailsActivity extends AppCompatActivity {
 
     private ImageView detailsImage;
+    private TextView likesText;
     private ArrayList<String> prep;
     private int id;
     private RequestQueue queue;
@@ -38,6 +52,10 @@ public class RecipesDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_details);
 
+        LinearLayout likesLayout = findViewById(R.id.likesLayout);
+        ImageView likesImage = findViewById(R.id.likeImage);
+        likesText = findViewById(R.id.likesTextView);
+
         detailsImage = findViewById(R.id.detailsImage);
 
         flex = findViewById(R.id.flexLayout);
@@ -47,6 +65,74 @@ public class RecipesDetailsActivity extends AppCompatActivity {
 
         id = getIntent().getIntExtra("id", 0);
         getRecipeDetails(id);
+
+        if(UserLikes.DoesLike(id)){
+            likesImage.setImageResource(R.drawable.like_enabled_recipe_image);
+        }
+
+        if(!UserLogin.IsLoggedIn){
+            likesLayout.setEnabled(false);
+        }
+
+        Animation bounceAnim = AnimationUtils.loadAnimation(this, R.anim.bounce2);
+
+        likesLayout.setOnClickListener(view -> {
+            likesLayout.startAnimation(bounceAnim);
+            StringRequest request;
+            likesLayout.setEnabled(false);
+            if(UserLikes.DoesLike(id)){
+                request = new StringRequest(1, ServerUrls.UserLikes, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        UserLikes.RemoveLike(id);
+                        likesImage.setImageResource(R.drawable.like_recipe_image);
+                        likesText.setText((Integer.parseInt(likesText.getText().toString()) - 1) + "");
+                        likesLayout.setEnabled(true);
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        likesLayout.setEnabled(true);
+                    }
+                }) {
+                    @Nullable
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<>();
+                        params.put("userID", UserLogin.CurrentLoginID + "");
+                        params.put("recipeID", id + "");
+                        params.put("type", "remove");
+                        return params;
+                    }
+                };
+            }else {
+                request = new StringRequest(1, ServerUrls.UserLikes, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        UserLikes.AddLike(id);
+                        likesImage.setImageResource(R.drawable.like_enabled_recipe_image);
+                        likesText.setText((Integer.parseInt(likesText.getText().toString()) + 1) + "");
+                        likesLayout.setEnabled(true);
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        likesLayout.setEnabled(true);
+                    }
+                }) {
+                    @Nullable
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<>();
+                        params.put("userID", UserLogin.CurrentLoginID + "");
+                        params.put("recipeID", id + "");
+                        params.put("type", "add");
+                        return params;
+                    }
+                };
+            }
+            queue.add(request);
+        });
 
         String t = getIntent().getStringExtra("title");
         TextView title = findViewById(R.id.recipeTitleTv);
@@ -63,6 +149,8 @@ public class RecipesDetailsActivity extends AppCompatActivity {
                     JSONObject row = response.getJSONObject(0);
                     String ingredients = row.getString("ingredients");
                     String preparations = row.getString("preparation");
+                    int totalLikes = row.getInt("totallikes");
+                    likesText.setText(totalLikes + "");
 
                     String[] ingredientArray = ingredients.split("\n");
 

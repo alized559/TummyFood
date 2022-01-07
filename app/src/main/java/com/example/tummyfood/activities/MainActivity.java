@@ -59,6 +59,9 @@ public class MainActivity extends AppCompatActivity {
             UserLogin.Login(MainActivity.this, true);
         });
 
+        //Attempt Automated Login
+        UserLogin.AttemptLogin(this);
+
         queue = Volley.newRequestQueue(this);
 
         GetTrendingRecipes();

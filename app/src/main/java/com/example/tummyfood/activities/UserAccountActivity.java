@@ -20,6 +20,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.tummyfood.R;
 import com.example.tummyfood.helpers.ServerUrls;
+import com.example.tummyfood.helpers.UserLikes;
 import com.example.tummyfood.helpers.UserLogin;
 
 import java.util.HashMap;
@@ -90,6 +91,7 @@ public class UserAccountActivity extends AppCompatActivity {
                                 UserLogin.CurrentLoginID = Integer.parseInt(response.replace("success_", ""));
                                 UserLogin.CurrentLoginUsername = username;
                                 UserLogin.UpdateAccount(username, password);
+                                UserLikes.UpdateLikes(UserAccountActivity.this);
                                 if(returnToUser){
                                     Intent intent = new Intent(UserAccountActivity.this, UserPageActivity.class);
                                     startActivity(intent);
@@ -99,6 +101,7 @@ public class UserAccountActivity extends AppCompatActivity {
                                 UserLogin.IsLoggedIn = false;
                                 UserLogin.CurrentLoginUsername = "Anonymous";
                                 UserLogin.CurrentLoginID = -1;
+                                UserLikes.ResetLikes();
                                 loginButton.setText("Login");
                                 loginButton.setEnabled(true);
                                 errorMessage.setText("Username Or Password Incorrect!");
@@ -111,6 +114,7 @@ public class UserAccountActivity extends AppCompatActivity {
                             UserLogin.IsLoggedIn = false;
                             UserLogin.CurrentLoginUsername = "Anonymous";
                             UserLogin.CurrentLoginID = -1;
+                            UserLikes.ResetLikes();
                             loginButton.setText("Login");
                             loginButton.setEnabled(true);
                             errorMessage.setText("Database Error!");
@@ -150,6 +154,7 @@ public class UserAccountActivity extends AppCompatActivity {
                                 UserLogin.CurrentLoginID = Integer.parseInt(response.replace("success_", ""));
                                 UserLogin.CurrentLoginUsername = username;
                                 UserLogin.UpdateAccount(username, password);
+                                UserLikes.UpdateLikes(UserAccountActivity.this);
                                 if(returnToUser){
                                     Intent intent = new Intent(UserAccountActivity.this, UserPageActivity.class);
                                     startActivity(intent);
@@ -163,6 +168,7 @@ public class UserAccountActivity extends AppCompatActivity {
                                 UserLogin.IsLoggedIn = false;
                                 UserLogin.CurrentLoginUsername = "Anonymous";
                                 UserLogin.CurrentLoginID = -1;
+                                UserLikes.ResetLikes();
                             }
                         }
                     }, new Response.ErrorListener() {
@@ -175,6 +181,7 @@ public class UserAccountActivity extends AppCompatActivity {
                             UserLogin.IsLoggedIn = false;
                             UserLogin.CurrentLoginUsername = "Anonymous";
                             UserLogin.CurrentLoginID = -1;
+                            UserLikes.ResetLikes();
                         }
                     }) {
                         @Nullable

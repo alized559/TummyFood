@@ -13,12 +13,12 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:paddingTop="20dp"
-            android:paddingBottom="20dp"
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
@@ -39,57 +39,85 @@
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginBottom="5dp"
-                android:layout_marginTop="20dp"
-                android:textColor="@color/black"
+                android:fontFamily="@font/s"
                 android:gravity="center"
                 android:text="Recipe Name"
-                android:fontFamily="@font/s"
+                android:textColor="@color/black"
                 android:textSize="30dp" />
 
             <TextView
                 android:id="@+id/ingredientsTv"
-                android:text="Required Ingredients"
-                android:textSize="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="30dp"
                 android:fontFamily="@font/s"
+                android:text="Required Ingredients"
                 android:textColor="@color/black"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:textSize="20dp" />
 
             <com.google.android.flexbox.FlexboxLayout
                 android:id="@+id/flexLayout"
-                android:layout_marginTop="20dp"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 app:flexWrap="wrap">
 
             </com.google.android.flexbox.FlexboxLayout>
 
             <TextView
                 android:id="@+id/preparationsTv"
-                android:text="Preparation"
-                android:layout_marginTop="30dp"
-                android:textSize="20dp"
-                android:fontFamily="@font/s"
-                android:layout_marginLeft="10dp"
-                android:textColor="@color/black"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/s"
+                android:text="Preparation"
+                android:textColor="@color/black"
+                android:textSize="20dp" />
 
             <com.google.android.flexbox.FlexboxLayout
                 android:id="@+id/flexLayout1"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
                 app:flexWrap="wrap">
 
             </com.google.android.flexbox.FlexboxLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="10dp"
+                android:orientation="horizontal"
+                android:id="@+id/likesLayout">
+
+                <ImageView
+                    android:id="@+id/likeImage"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/like_recipe_image" />
+
+                <TextView
+                    android:id="@+id/likesTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="2dp"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
+
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

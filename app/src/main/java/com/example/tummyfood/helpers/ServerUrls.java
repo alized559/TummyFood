@@ -26,4 +26,10 @@ public class ServerUrls {
 
     public static String Authenticate = "http://toxicscripts.com/college/authenticate.php";
 
+    public static String GetUserLikes(){
+        return "http://toxicscripts.com/college/getLikes.php?userID=" + UserLogin.CurrentLoginID;
+    }
+
+    public static String UserLikes = "http://toxicscripts.com/college/userLikes.php";
+
 }

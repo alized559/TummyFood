@@ -48,6 +48,22 @@ public class UserLogin {
         }
     }
 
+    public static void AttemptLogin(Context context){
+        if(!IsLoggedIn){
+            if(prefs == null) {
+                prefs = context.getSharedPreferences("user_settings", context.MODE_PRIVATE);
+            }
+            String username = prefs.getString("username", null);
+            String password = prefs.getString("password", null);
+
+            if(username == null || password == null || username.isEmpty() || password.isEmpty()){
+                //Login Failed
+            }else {
+                SendLoginRequest(username, password, context, false);
+            }
+        }
+    }
+
     public static void SendLoginRequest(String username, String password, Context context, boolean OpenUserPage){
         RequestQueue queue = Volley.newRequestQueue(context);
         StringRequest request = new StringRequest(1, ServerUrls.Authenticate, new Response.Listener<String>() {
@@ -58,6 +74,7 @@ public class UserLogin {
                     CurrentLoginUsername = username;
                     CurrentLoginID = Integer.parseInt(response.replace("success_", ""));
                     Toast.makeText(context, "Logged In Successfully!", Toast.LENGTH_SHORT).show();
+                    UserLikes.UpdateLikes(context);
                     if(OpenUserPage){
                         Intent intent = new Intent(context, UserPageActivity.class);
                         context.startActivity(intent);
@@ -66,6 +83,7 @@ public class UserLogin {
                     IsLoggedIn = false;
                     CurrentLoginUsername = "Anonymous";
                     CurrentLoginID = -1;
+                    UserLikes.ResetLikes();
                 }
             }
         }, new Response.ErrorListener() {
@@ -74,6 +92,7 @@ public class UserLogin {
                 IsLoggedIn = false;
                 CurrentLoginUsername = "Anonymous";
                 CurrentLoginID = -1;
+                UserLikes.ResetLikes();
             }
         }) {
             @Nullable
@@ -98,6 +117,7 @@ public class UserLogin {
     }
 
     public static void Logout(){
+        UserLikes.ResetLikes();
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("username", null);
         editor.putString("password", null);
