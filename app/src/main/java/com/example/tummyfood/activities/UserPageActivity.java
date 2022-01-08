@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -81,9 +80,9 @@ public class UserPageActivity extends AppCompatActivity {
 
     }
 
-    public void GetLikedRecipes(){
+    public void GetLikedRecipes() {
         LikedRecipes.clear();
-        JsonArrayRequest request = new JsonArrayRequest(ServerUrls.GetAllLikes(UserLogin.CurrentLoginID), new Response.Listener<JSONArray>() {
+        JsonArrayRequest request = new JsonArrayRequest(ServerUrls.getAllLikes(UserLogin.CurrentLoginID), new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 try {
@@ -94,7 +93,7 @@ public class UserPageActivity extends AppCompatActivity {
                         String type = row.getString("type");
                         int time = row.getInt("time");
                         if(ImageCache.GetImage(id) == null) {
-                            ImageRequest request = new ImageRequest(ServerUrls.GetImage(id), new Response.Listener<Bitmap>() {
+                            ImageRequest request = new ImageRequest(ServerUrls.getImage(id), new Response.Listener<Bitmap>() {
                                 @Override
                                 public void onResponse(Bitmap response) {
                                     RecipeDataModel model = new RecipeDataModel(id, name, type, time);

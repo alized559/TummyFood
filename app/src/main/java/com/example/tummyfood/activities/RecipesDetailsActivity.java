@@ -1,14 +1,8 @@
 package com.example.tummyfood.activities;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.graphics.Color;
-import android.media.Image;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -17,6 +11,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -24,8 +21,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.tummyfood.helpers.ImageCache;
 import com.example.tummyfood.R;
+import com.example.tummyfood.helpers.ImageCache;
 import com.example.tummyfood.helpers.ServerUrls;
 import com.example.tummyfood.helpers.UserLikes;
 import com.example.tummyfood.helpers.UserLogin;
@@ -34,7 +31,6 @@ import com.google.android.flexbox.FlexboxLayout;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,7 +38,6 @@ public class RecipesDetailsActivity extends AppCompatActivity {
 
     private ImageView detailsImage;
     private TextView likesText;
-    private ArrayList<String> prep;
     private int id;
     private RequestQueue queue;
     private FlexboxLayout flex, flex1;
@@ -66,11 +61,11 @@ public class RecipesDetailsActivity extends AppCompatActivity {
         id = getIntent().getIntExtra("id", 0);
         getRecipeDetails(id);
 
-        if(UserLikes.DoesLike(id)){
+        if (UserLikes.DoesLike(id)) {
             likesImage.setImageResource(R.drawable.like_enabled_recipe_image);
         }
 
-        if(!UserLogin.IsLoggedIn){
+        if (!UserLogin.isLoggedIn) {
             likesLayout.setEnabled(false);
         }
 
@@ -80,11 +75,11 @@ public class RecipesDetailsActivity extends AppCompatActivity {
             likesLayout.startAnimation(bounceAnim);
             StringRequest request;
             likesLayout.setEnabled(false);
-            if(UserLikes.DoesLike(id)){
-                request = new StringRequest(1, ServerUrls.UserLikes, new Response.Listener<String>() {
+            if (UserLikes.DoesLike(id)) {
+                request = new StringRequest(1, ServerUrls.userLikes, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        UserLikes.RemoveLike(id);
+                        UserLikes.removeLike(id);
                         likesImage.setImageResource(R.drawable.like_recipe_image);
                         likesText.setText((Integer.parseInt(likesText.getText().toString()) - 1) + "");
                         likesLayout.setEnabled(true);
@@ -105,11 +100,11 @@ public class RecipesDetailsActivity extends AppCompatActivity {
                         return params;
                     }
                 };
-            }else {
-                request = new StringRequest(1, ServerUrls.UserLikes, new Response.Listener<String>() {
+            } else {
+                request = new StringRequest(1, ServerUrls.userLikes, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        UserLikes.AddLike(id);
+                        UserLikes.addLike(id);
                         likesImage.setImageResource(R.drawable.like_enabled_recipe_image);
                         likesText.setText((Integer.parseInt(likesText.getText().toString()) + 1) + "");
                         likesLayout.setEnabled(true);
@@ -154,7 +149,7 @@ public class RecipesDetailsActivity extends AppCompatActivity {
 
                     String[] ingredientArray = ingredients.split("\n");
 
-                    for(String ingredient : ingredientArray){
+                    for(String ingredient : ingredientArray) {
                         TextView tv = new TextView(RecipesDetailsActivity.this);
                         tv.setText(ingredient);
                         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.
@@ -184,13 +179,13 @@ public class RecipesDetailsActivity extends AppCompatActivity {
                     }
 
                 } catch (Exception e) {
-                    //Toast.makeText(RecipesDetailsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RecipesDetailsActivity.this, "error", Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                //Toast.makeText(RecipesDetailsActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(RecipesDetailsActivity.this, "error", Toast.LENGTH_SHORT).show();
             }
         });
 

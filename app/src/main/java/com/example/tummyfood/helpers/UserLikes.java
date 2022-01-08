@@ -1,65 +1,50 @@
 package com.example.tummyfood.helpers;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.util.Log;
-import android.widget.ImageView;
-import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-
-import com.android.volley.AuthFailureError;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.tummyfood.activities.MainActivity;
-import com.example.tummyfood.activities.UserPageActivity;
-import com.example.tummyfood.models.RecipeDataModel;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class UserLikes {
 
-    private static ArrayList<Integer> LikedRecipes = new ArrayList<Integer>();
+    private static ArrayList<Integer> likedRecipes = new ArrayList<Integer>();
 
-    public static void AddLike(int RecipeID){
-        if(!LikedRecipes.contains(RecipeID)){
-            LikedRecipes.add(RecipeID);
+    public static void addLike(int RecipeID) {
+        if (!likedRecipes.contains(RecipeID)) {
+            likedRecipes.add(RecipeID);
         }
     }
 
-    public static void RemoveLike(int RecipeID){
-        if(LikedRecipes.contains(RecipeID)){
-            LikedRecipes.remove((Object)RecipeID);
+    public static void removeLike(int RecipeID) {
+        if (likedRecipes.contains(RecipeID)) {
+            likedRecipes.remove((Object)RecipeID);
         }
     }
 
     public static boolean DoesLike(int RecipeID){
-        return LikedRecipes.contains(RecipeID);
+        return likedRecipes.contains(RecipeID);
     }
 
-    public static void UpdateLikes(Context context){
-        LikedRecipes.clear();
+    public static void UpdateLikes(Context context) {
+        likedRecipes.clear();
         RequestQueue queue = Volley.newRequestQueue(context);
-        JsonArrayRequest request = new JsonArrayRequest(ServerUrls.GetUserLikes(), new Response.Listener<JSONArray>() {
+        JsonArrayRequest request = new JsonArrayRequest(ServerUrls.getUserLikes(), new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 try {
-                    for (int i = 0;i < response.length();i++) {
+                    for (int i = 0; i < response.length(); i++) {
                         JSONObject row = response.getJSONObject(i);
                         int id = row.getInt("recipeID");
-                        if(!LikedRecipes.contains(id)){
-                            LikedRecipes.add(id);
+                        if(!likedRecipes.contains(id)){
+                            likedRecipes.add(id);
                         }
                     }
 
@@ -79,7 +64,7 @@ public class UserLikes {
     }
 
     public static void ResetLikes(){
-        LikedRecipes.clear();
+        likedRecipes.clear();
     }
 
 }

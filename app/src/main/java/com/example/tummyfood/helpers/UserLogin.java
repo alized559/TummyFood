@@ -23,64 +23,64 @@ public class UserLogin {
 
     static SharedPreferences prefs = null;
 
-    public static boolean IsLoggedIn = false;
+    public static boolean isLoggedIn = false;
     public static String CurrentLoginUsername = "Anonymous";
     public static int CurrentLoginID = -1;
 
-    public static void Login(Context context, boolean OpenUserPage){
-        if(IsLoggedIn){
+    public static void Login(Context context, boolean OpenUserPage) {
+        if (isLoggedIn) {
             Intent intent = new Intent(context, UserPageActivity.class);
             context.startActivity(intent);
             return;
         }
-        if(prefs == null) {
+        if (prefs == null) {
             prefs = context.getSharedPreferences("user_settings", context.MODE_PRIVATE);
         }
         String username = prefs.getString("username", null);
         String password = prefs.getString("password", null);
 
-        if(username == null || password == null || username.isEmpty() || password.isEmpty()){
+        if (username == null || password == null || username.isEmpty() || password.isEmpty()) {
             Intent intent = new Intent(context, UserAccountActivity.class);
             intent.putExtra("returnToUserPage", OpenUserPage);
             context.startActivity(intent);
-        }else {
+        } else {
             SendLoginRequest(username, password, context, OpenUserPage);
         }
     }
 
-    public static void AttemptLogin(Context context){
-        if(!IsLoggedIn){
-            if(prefs == null) {
+    public static void AttemptLogin(Context context) {
+        if (!isLoggedIn) {
+            if (prefs == null) {
                 prefs = context.getSharedPreferences("user_settings", context.MODE_PRIVATE);
             }
             String username = prefs.getString("username", null);
             String password = prefs.getString("password", null);
 
-            if(username == null || password == null || username.isEmpty() || password.isEmpty()){
+            if (username == null || password == null || username.isEmpty() || password.isEmpty()) {
                 //Login Failed
-            }else {
+            } else {
                 SendLoginRequest(username, password, context, false);
             }
         }
     }
 
-    public static void SendLoginRequest(String username, String password, Context context, boolean OpenUserPage){
+    public static void SendLoginRequest(String username, String password, Context context, boolean OpenUserPage) {
         RequestQueue queue = Volley.newRequestQueue(context);
-        StringRequest request = new StringRequest(1, ServerUrls.Authenticate, new Response.Listener<String>() {
+        StringRequest request = new StringRequest(1, ServerUrls.authenticate, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 if (response.contains("success")) {
-                    IsLoggedIn = true;
+                    isLoggedIn = true;
                     CurrentLoginUsername = username;
                     CurrentLoginID = Integer.parseInt(response.replace("success_", ""));
                     Toast.makeText(context, "Logged In Successfully!", Toast.LENGTH_SHORT).show();
                     UserLikes.UpdateLikes(context);
-                    if(OpenUserPage){
+                    if (OpenUserPage) {
                         Intent intent = new Intent(context, UserPageActivity.class);
                         context.startActivity(intent);
                     }
-                }else {
-                    IsLoggedIn = false;
+                } else {
+                    isLoggedIn = false;
                     CurrentLoginUsername = "Anonymous";
                     CurrentLoginID = -1;
                     UserLikes.ResetLikes();
@@ -89,7 +89,7 @@ public class UserLogin {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                IsLoggedIn = false;
+                isLoggedIn = false;
                 CurrentLoginUsername = "Anonymous";
                 CurrentLoginID = -1;
                 UserLikes.ResetLikes();
@@ -108,7 +108,7 @@ public class UserLogin {
         queue.add(request);
     }
 
-    public static void UpdateAccount(String username, String password){
+    public static void UpdateAccount(String username, String password) {
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("username", username);
         editor.putString("password", password);
@@ -116,12 +116,12 @@ public class UserLogin {
         editor.commit();//Apply changes
     }
 
-    public static void Logout(){
+    public static void Logout() {
         UserLikes.ResetLikes();
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("username", null);
         editor.putString("password", null);
-        IsLoggedIn = false;
+        isLoggedIn = false;
         CurrentLoginUsername = "Anonymous";
         CurrentLoginID = -1;
         editor.commit();//Apply changes

@@ -1,39 +1,35 @@
 package com.example.tummyfood.helpers;
 
-import android.util.Log;
-
-import com.android.volley.toolbox.StringRequest;
-
 public class ServerUrls {
 
-    public static String GetRecipes(String category){
-        return "http://toxicscripts.com/college/getRecipes.php?category=" + category;
+    public static String getRecipes(String category){
+        return "https://tummyfood2.000webhostapp.com/getRecipes.php?category=" + category;
     }
 
-    public static String GetTrendingRecipes(){
-        return "http://toxicscripts.com/college/getRecipes.php";
+    public static String getTrendingRecipes() {
+        return "https://tummyfood2.000webhostapp.com/getRecipes.php";
     }
 
-    public static String GetImage(int recipe){
-        return "http://toxicscripts.com/college/getImage.php?id=" + recipe;
+    public static String getImage(int recipeId) {
+        return "https://tummyfood2.000webhostapp.com/getImage.php?id=" + recipeId;
     }
 
     public static String getRecipeDetails(int recipeId) {
-        return "http://toxicscripts.com/college/getRecipeDetails.php?id=" + recipeId;
+        return "https://tummyfood2.000webhostapp.com/getRecipeDetails.php?id=" + recipeId;
     }
 
-    public static String CreateRecipe = "http://toxicscripts.com/college/createRecipe.php";
+    public static String createRecipe = "https://tummyfood2.000webhostapp.com/createRecipe.php";
 
-    public static String Authenticate = "http://toxicscripts.com/college/authenticate.php";
+    public static String authenticate = "https://tummyfood2.000webhostapp.com/authenticate.php";
 
-    public static String GetUserLikes(){
-        return "http://toxicscripts.com/college/getLikes.php?userID=" + UserLogin.CurrentLoginID;
+    public static String getUserLikes() {
+        return "https://tummyfood2.000webhostapp.com/getLikes.php?userID=" + UserLogin.CurrentLoginID;
     }
 
-    public static String UserLikes = "http://toxicscripts.com/college/userLikes.php";
+    public static String userLikes = "https://tummyfood2.000webhostapp.com/userLikes.php";
 
-    public static String GetAllLikes(int userID) {
-        return "http://toxicscripts.com/college/getAllLikes.php?userID=" + userID;
+    public static String getAllLikes(int userID) {
+        return "https://tummyfood2.000webhostapp.com/getAllLikes.php?userID=" + userID;
     }
 
 }

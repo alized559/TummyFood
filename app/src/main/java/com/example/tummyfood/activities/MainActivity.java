@@ -86,20 +86,20 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void GetTrendingRecipes(){
+    public void GetTrendingRecipes() {
         TrendingRecipes.clear();
-        JsonArrayRequest request = new JsonArrayRequest(ServerUrls.GetTrendingRecipes(), new Response.Listener<JSONArray>() {
+        JsonArrayRequest request = new JsonArrayRequest(ServerUrls.getTrendingRecipes(), new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 try {
-                    for (int i = 0;i < response.length();i++) {
+                    for (int i = 0; i < response.length(); i++) {
                         JSONObject row = response.getJSONObject(i);
                         int id = row.getInt("id");
                         String name = row.getString("title");
                         String type = row.getString("type");
                         int time = row.getInt("time");
                         if(ImageCache.GetImage(id) == null) {
-                            ImageRequest request = new ImageRequest(ServerUrls.GetImage(id), new Response.Listener<Bitmap>() {
+                            ImageRequest request = new ImageRequest(ServerUrls.getImage(id), new Response.Listener<Bitmap>() {
                                 @Override
                                 public void onResponse(Bitmap response) {
                                     RecipeDataModel model = new RecipeDataModel(id, name, type, time);
@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
                                     });
 
                             queue.add(request);
-                        }else {
+                        } else {
                             RecipeDataModel model = new RecipeDataModel(id, name, type, time);
                             model.setImage(ImageCache.GetImage(id));
                             TrendingRecipes.add(model);
@@ -126,22 +126,16 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                 } catch (Exception ex) {
-
+                    Toast.makeText(MainActivity.this, "error", Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Toast.makeText(MainActivity.this, "error", Toast.LENGTH_SHORT).show();
             }
         });
 
         queue.add(request);
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        finishAffinity();//This is used to skip the splash screen once you go back and close the application
     }
 }

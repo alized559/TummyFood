@@ -61,7 +61,7 @@ public class AddRecipeActivity extends AppCompatActivity {
             String prepTime = recipePrepTime.getText().toString();
             String ingredients = recipeIngredients.getText().toString();
             String preparation = recipePreparation.getText().toString();
-            if(title.isEmpty() || prepTime.isEmpty() || ingredients.isEmpty() || preparation.isEmpty()){
+            if (title.isEmpty() || prepTime.isEmpty() || ingredients.isEmpty() || preparation.isEmpty()) {
                 Toast.makeText(AddRecipeActivity.this, "You must fill in all info!", Toast.LENGTH_LONG).show();
                 return;
             }
@@ -83,7 +83,7 @@ public class AddRecipeActivity extends AppCompatActivity {
 
                     createRecipe.setEnabled(false);
 
-                    StringRequest request = new StringRequest(1, ServerUrls.CreateRecipe, new Response.Listener<String>() {
+                    StringRequest request = new StringRequest(1, ServerUrls.createRecipe, new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
                             Toast.makeText(AddRecipeActivity.this, response, Toast.LENGTH_SHORT).show();
