@@ -20,10 +20,6 @@
             android:name=".activities.UserAccountActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.login.AccountActivity"
-            android:exported="false"
-            android:label="@string/title_activity_account" />
-        <activity
             android:name=".activities.RecipesDetailsActivity"
             android:exported="false" />
         <activity
