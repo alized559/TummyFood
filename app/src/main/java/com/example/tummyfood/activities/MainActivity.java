@@ -126,13 +126,13 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                 } catch (Exception ex) {
-                    Toast.makeText(MainActivity.this, "error", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Database error!", Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(MainActivity.this, "error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Network error!", Toast.LENGTH_SHORT).show();
             }
         });
 

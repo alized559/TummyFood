@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -53,6 +55,8 @@ public class UserAccountActivity extends AppCompatActivity {
         repeatPasswordText.setVisibility(View.GONE);
         repeatPasswordTextView.setVisibility(View.GONE);
 
+        Animation bounceAnim = AnimationUtils.loadAnimation(this, R.anim.bounce2);
+
         switchAccount.setOnClickListener(view -> {
             if (isLoggingIn) {
                 isLoggingIn = false;
@@ -67,6 +71,7 @@ public class UserAccountActivity extends AppCompatActivity {
                 switchAccount.setText("Don't Have An Account? Register.");
                 loginButton.setText("Login");
             }
+            errorMessage.clearAnimation();
             errorMessage.setVisibility(View.INVISIBLE);
         });
 
@@ -78,6 +83,7 @@ public class UserAccountActivity extends AppCompatActivity {
                 if (username.length() < 4 || password.length() < 6) {
                     Toast.makeText(UserAccountActivity.this, "Input Fields Invalid Length (MIN 6)", Toast.LENGTH_LONG).show();
                 } else {
+                    errorMessage.clearAnimation();
                     errorMessage.setVisibility(View.INVISIBLE);
                     loginButton.setText("Please Wait");
                     loginButton.setEnabled(false);
@@ -105,6 +111,7 @@ public class UserAccountActivity extends AppCompatActivity {
                                 loginButton.setEnabled(true);
                                 errorMessage.setText("Username Or Password Incorrect!");
                                 errorMessage.setVisibility(View.VISIBLE);
+                                errorMessage.startAnimation(bounceAnim);
                             }
                         }
                     }, new Response.ErrorListener() {
@@ -141,6 +148,7 @@ public class UserAccountActivity extends AppCompatActivity {
                         Toast.makeText(UserAccountActivity.this, "Passwords Must Match!", Toast.LENGTH_LONG).show();
                         return;
                     }
+                    errorMessage.clearAnimation();
                     errorMessage.setVisibility(View.INVISIBLE);
                     loginButton.setText("Please Wait");
                     loginButton.setEnabled(false);
@@ -162,6 +170,7 @@ public class UserAccountActivity extends AppCompatActivity {
                             } else if(response.equals("error")) {
                                 errorMessage.setText("Username Already Exists!");
                                 errorMessage.setVisibility(View.VISIBLE);
+                                errorMessage.startAnimation(bounceAnim);
                                 loginButton.setText("Register");
                                 loginButton.setEnabled(true);
                                 UserLogin.isLoggedIn = false;
@@ -175,6 +184,7 @@ public class UserAccountActivity extends AppCompatActivity {
                         public void onErrorResponse(VolleyError error) {
                             errorMessage.setText("Database Error!");
                             errorMessage.setVisibility(View.VISIBLE);
+                            errorMessage.startAnimation(bounceAnim);
                             loginButton.setText("Register");
                             loginButton.setEnabled(true);
                             UserLogin.isLoggedIn = false;

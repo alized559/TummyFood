@@ -32,7 +32,7 @@
         android:textSize="18dp"
         android:textColor="@color/white"
         android:textStyle="bold"
-        android:background="@color/red" />
+        android:background="@color/tomato" />
 
     <LinearLayout
         android:layout_width="match_parent"
