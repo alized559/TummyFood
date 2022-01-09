@@ -133,8 +133,7 @@ public class RecipesActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(RecipesActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
-                Log.e("Loading Error", error.toString());
+                Toast.makeText(RecipesActivity.this, "Network error!", Toast.LENGTH_SHORT).show();
             }
         });
 
