@@ -1,17 +1,24 @@
 package com.example.tummyfood.models;
 
+import android.graphics.Bitmap;
+
 public class CategoriesDataModel {
 
-    private int image;
+    private Bitmap image;
+    private int id = 1;
     private String title;
 
-    public CategoriesDataModel(int image, String title) {
-        this.image = image;
+    public CategoriesDataModel(int id, String title) {
+        this.id = id;
         this.title = title;
     }
 
-    public int getImage() {
+    public Bitmap getImage() {
         return image;
+    }
+
+    public void setImage(Bitmap image) {
+        this.image = image;
     }
 
     public String getTitle() {

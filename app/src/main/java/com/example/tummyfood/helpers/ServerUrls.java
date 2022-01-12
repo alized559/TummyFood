@@ -32,4 +32,10 @@ public class ServerUrls {
         return "https://tummyfood2.000webhostapp.com/getAllLikes.php?userID=" + userID;
     }
 
+    public static String getCategories = "https://tummyfood2.000webhostapp.com/getCategories.php";
+
+    public static String getCategoryImage(int categoryId) {
+        return "https://tummyfood2.000webhostapp.com/getCategoryImage.php?id=" + categoryId;
+    }
+
 }

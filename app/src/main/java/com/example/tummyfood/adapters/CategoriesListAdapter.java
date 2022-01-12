@@ -40,11 +40,11 @@ public class CategoriesListAdapter extends ArrayAdapter<CategoriesDataModel> {
         CategoriesDataModel p = getItem(position);
 
         if (p != null) {
-            ImageView image = v.findViewById(R.id.categoryImage);
             TextView title = v.findViewById(R.id.categoryTitle);
+            ImageView categoryImage = v.findViewById(R.id.categoryImage);
 
-            if (image != null) {
-                image.setImageResource(p.getImage());
+            if (categoryImage != null) {
+                categoryImage.setImageBitmap(p.getImage());
             }
             if (title != null) {
                 title.setText(p.getTitle());
