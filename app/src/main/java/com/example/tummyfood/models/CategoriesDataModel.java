@@ -25,4 +25,6 @@ public class CategoriesDataModel {
         return title;
     }
 
+    public int getId() {return id;}
+
 }

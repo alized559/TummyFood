@@ -3,6 +3,7 @@ package com.example.tummyfood.helpers;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -23,7 +24,7 @@ public class UserLogin {
 
     static SharedPreferences prefs = null;
 
-    public static boolean isLoggedIn = false;
+    public static boolean isLoggedIn = false, isAdmin = false;
     public static String CurrentLoginUsername = "Anonymous";
     public static int CurrentLoginID = -1;
 
@@ -70,9 +71,7 @@ public class UserLogin {
             @Override
             public void onResponse(String response) {
                 if (response.contains("success")) {
-                    isLoggedIn = true;
-                    CurrentLoginUsername = username;
-                    CurrentLoginID = Integer.parseInt(response.replace("success_", ""));
+                    UpdateLoginState(true, username, response);
                     Toast.makeText(context, "Logged In Successfully!", Toast.LENGTH_SHORT).show();
                     UserLikes.UpdateLikes(context);
                     if (OpenUserPage) {
@@ -80,18 +79,14 @@ public class UserLogin {
                         context.startActivity(intent);
                     }
                 } else {
-                    isLoggedIn = false;
-                    CurrentLoginUsername = "Anonymous";
-                    CurrentLoginID = -1;
+                    UpdateLoginState(false, "Anonymous", -1, false);
                     UserLikes.ResetLikes();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                isLoggedIn = false;
-                CurrentLoginUsername = "Anonymous";
-                CurrentLoginID = -1;
+                UpdateLoginState(false, "Anonymous", -1, false);
                 UserLikes.ResetLikes();
             }
         }) {
@@ -108,6 +103,23 @@ public class UserLogin {
         queue.add(request);
     }
 
+    public static void UpdateLoginState(boolean loggedIn, String username, int loginID, boolean admin){
+        isLoggedIn = loggedIn;
+        CurrentLoginUsername = username;
+        CurrentLoginID = loginID;
+        isAdmin = admin;
+    }
+
+    public static void UpdateLoginState(boolean loggedIn, String username, String response){
+        isLoggedIn = loggedIn;
+        CurrentLoginUsername = username;
+        String loginData[] = response.replace("success_", "").split("_");
+        int loginID = Integer.parseInt(loginData[0]);
+        boolean admin = loginData[1].equalsIgnoreCase("1") ? true : false;
+        CurrentLoginID = loginID;
+        isAdmin = admin;
+    }
+
     public static void UpdateAccount(String username, String password) {
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("username", username);
@@ -121,9 +133,7 @@ public class UserLogin {
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("username", null);
         editor.putString("password", null);
-        isLoggedIn = false;
-        CurrentLoginUsername = "Anonymous";
-        CurrentLoginID = -1;
+        UpdateLoginState(false, "Anonymous", -1, false);
         editor.commit();//Apply changes
     }
 

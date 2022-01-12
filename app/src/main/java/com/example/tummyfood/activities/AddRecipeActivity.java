@@ -92,7 +92,8 @@ public class AddRecipeActivity extends AppCompatActivity {
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-
+                            createRecipe.setEnabled(true);
+                            Toast.makeText(AddRecipeActivity.this, "Error, Couldn't Add Recipe!", Toast.LENGTH_SHORT).show();
                         }
                     }) {
                         @Nullable

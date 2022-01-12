@@ -12,6 +12,19 @@
         android:layout_marginTop="25dp"
         android:id="@+id/titleConstrainLayout">
 
+        <ImageView
+            android:id="@+id/add_categories_image"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/add_recipes_image"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.080"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.466" />
+
         <TextView
             android:id="@+id/chooseCategoryTv"
             android:layout_width="wrap_content"

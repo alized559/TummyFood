@@ -92,9 +92,7 @@ public class UserAccountActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(String response) {
                             if (response.contains("success")) {
-                                UserLogin.isLoggedIn = true;
-                                UserLogin.CurrentLoginID = Integer.parseInt(response.replace("success_", ""));
-                                UserLogin.CurrentLoginUsername = username;
+                                UserLogin.UpdateLoginState(true, username, response);
                                 UserLogin.UpdateAccount(username, password);
                                 UserLikes.UpdateLikes(UserAccountActivity.this);
                                 if (returnToUser) {
@@ -103,9 +101,7 @@ public class UserAccountActivity extends AppCompatActivity {
                                 }
                                 finish();
                             } else if (response.equals("error")) {
-                                UserLogin.isLoggedIn = false;
-                                UserLogin.CurrentLoginUsername = "Anonymous";
-                                UserLogin.CurrentLoginID = -1;
+                                UserLogin.UpdateLoginState(false, "Anonymous", -1, false);
                                 UserLikes.ResetLikes();
                                 loginButton.setText("Login");
                                 loginButton.setEnabled(true);
@@ -117,9 +113,7 @@ public class UserAccountActivity extends AppCompatActivity {
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            UserLogin.isLoggedIn = false;
-                            UserLogin.CurrentLoginUsername = "Anonymous";
-                            UserLogin.CurrentLoginID = -1;
+                            UserLogin.UpdateLoginState(false, "Anonymous", -1, false);
                             UserLikes.ResetLikes();
                             loginButton.setText("Login");
                             loginButton.setEnabled(true);
@@ -157,9 +151,7 @@ public class UserAccountActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(String response) {
                             if (response.contains("success")) {
-                                UserLogin.isLoggedIn = true;
-                                UserLogin.CurrentLoginID = Integer.parseInt(response.replace("success_", ""));
-                                UserLogin.CurrentLoginUsername = username;
+                                UserLogin.UpdateLoginState(true, username, response);
                                 UserLogin.UpdateAccount(username, password);
                                 UserLikes.UpdateLikes(UserAccountActivity.this);
                                 if (returnToUser) {
@@ -173,9 +165,7 @@ public class UserAccountActivity extends AppCompatActivity {
                                 errorMessage.startAnimation(bounceAnim);
                                 loginButton.setText("Register");
                                 loginButton.setEnabled(true);
-                                UserLogin.isLoggedIn = false;
-                                UserLogin.CurrentLoginUsername = "Anonymous";
-                                UserLogin.CurrentLoginID = -1;
+                                UserLogin.UpdateLoginState(false, "Anonymous", -1, false);
                                 UserLikes.ResetLikes();
                             }
                         }
@@ -187,9 +177,7 @@ public class UserAccountActivity extends AppCompatActivity {
                             errorMessage.startAnimation(bounceAnim);
                             loginButton.setText("Register");
                             loginButton.setEnabled(true);
-                            UserLogin.isLoggedIn = false;
-                            UserLogin.CurrentLoginUsername = "Anonymous";
-                            UserLogin.CurrentLoginID = -1;
+                            UserLogin.UpdateLoginState(false, "Anonymous", -1, false);
                             UserLikes.ResetLikes();
                         }
                     }) {

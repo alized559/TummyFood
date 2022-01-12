@@ -1,7 +1,10 @@
 package com.example.tummyfood.activities;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -15,11 +18,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.tummyfood.helpers.ImageCache;
 import com.example.tummyfood.R;
@@ -32,6 +37,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RecipesActivity extends AppCompatActivity {
 
@@ -76,6 +83,61 @@ public class RecipesActivity extends AppCompatActivity {
                 intent.putExtra("id", model.getId());
                 intent.putExtra("title", model.getName());
                 startActivity(intent);
+            }
+        });
+        recipesListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() { //list is my listView
+
+            @Override
+            public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+                                           final int pos, long id) {//When the category is held
+                if(UserLogin.isAdmin) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(RecipesActivity.this);
+                    String recipeTitle = CurrentRecipes.get(pos).getName();
+                    builder.setTitle("Delete " + CurrentRecipes.get(pos).getName());
+                    builder.setMessage("Are you sure you want to delete this recipe?");
+
+                    builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            StringRequest request = new StringRequest(1, ServerUrls.deleteRecipe, new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    CurrentRecipes.remove(pos);
+                                    recipeListAdapter.notifyDataSetChanged();
+                                    Toast.makeText(RecipesActivity.this, response, Toast.LENGTH_SHORT).show();
+                                }
+                            }, new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+
+                                }
+                            }) {
+                                @Nullable
+                                @Override
+                                protected Map<String, String> getParams() throws AuthFailureError {
+                                    Map<String, String> params = new HashMap<>();
+                                    params.put("recipeID", CurrentRecipes.get(pos).getId() + "");
+                                    return params;
+                                }
+                            };
+                            queue.add(request);
+                        }
+                    });
+
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //Do Nothing
+                        }
+                    });
+
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                }
+                return true;
             }
         });
 
@@ -133,7 +195,7 @@ public class RecipesActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(RecipesActivity.this, "Network error!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RecipesActivity.this, "No Recipes Found", Toast.LENGTH_SHORT).show();
             }
         });
 
